@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { registerValidation, loginValidation } = require("../validation");
+const { sendMail } = require("../utils/sendMessage");
 
 const User = require("../models/User");
 
@@ -17,13 +18,8 @@ exports.register = async (req, res, next) => {
     return res.status(400).send("Email already have a account.");
   }
 
-  // Check for password confirmation
-  if (req.body.password !== req.body.passwordConfirm) {
-    return res.status(400).send("The password doesn't match.");
-  }
-
   // Body data
-  const username = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
 
@@ -41,6 +37,14 @@ exports.register = async (req, res, next) => {
   // Trycatch save new user
   try {
     const userSave = await user.save();
+
+    sendMail({
+      to: user.email,
+      from: "delapena.gabriel12@gmail.com",
+      subject: "Thanks for joining!",
+      html: "<h4>We are happy you join us!!!</h4><br><h5>Please <a href='http://localhost:3000/forgetpassword'>login</a> to your new account </5>",
+    });
+
     console.log("USER CREATED");
     res.status(200).json({ userID: userSave._id });
   } catch (error) {
@@ -86,5 +90,57 @@ exports.login = async (req, res, next) => {
     res
       .status(500)
       .send("An error occured in the server, we are currently fixing it.");
+  }
+};
+
+exports.forgetPassword = async (req, res, next) => {
+  const email = req.body.email;
+
+  try {
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(400).send("User not found!");
+    }
+
+    sendMail({
+      to: user.email,
+      from: "delapena.gabriel12@gmail.com",
+      subject: "Thanks for joining!",
+      html: `<h4>Please click on this <a href="http://localhost:3000/resetpassword/${user._id}">link</a></h4>`,
+    });
+
+    res.status(200).json({ userID: user._id });
+  } catch (error) {
+    console.log(error);
+
+    if (error.response) {
+      console.log(error.response.body);
+    }
+  }
+};
+
+exports.resetPassword = async (req, res, next) => {
+  const userID = req.params.userID;
+  const password = req.body.password;
+
+  try {
+    const user = await User.findById(userID);
+    if (!user) {
+      return res.status(400).send("User not found!");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+    user.password = hashedPassword;
+    await user.save();
+    console.log("Password reset success!");
+    res
+      .status(200)
+      .json({ userID: user._id, message: "Reset password success." });
+  } catch (error) {
+    console.log(error);
+
+    if (error.response) {
+      console.log(error.response.body);
+    }
   }
 };
