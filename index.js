@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cors());
 
 // routes middleware
-app.use("/api/users", userRoutes);
+app.use("/", userRoutes);
 
 // DB connection
 mongoose
