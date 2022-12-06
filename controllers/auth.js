@@ -111,11 +111,7 @@ exports.forgetPassword = async (req, res, next) => {
 
     res.status(200).json({ userID: user._id });
   } catch (error) {
-    console.log(error);
-
-    if (error.response) {
-      console.log(error.response.body);
-    }
+    console.log("Something wen't wrong while sending email.");
   }
 };
 
@@ -138,9 +134,5 @@ exports.resetPassword = async (req, res, next) => {
       .json({ userID: user._id, message: "Reset password success." });
   } catch (error) {
     console.log(error);
-
-    if (error.response) {
-      console.log(error.response.body);
-    }
   }
 };
