@@ -18,7 +18,12 @@ app.use(cors());
 app.use("/api/users", userRoutes);
 
 // DB connection
-mongoose.connect(process.env.DB_CONNECTION).then(() => {
-  console.log("CONNECTED TO DB");
-  app.listen(8081);
-});
+mongoose
+  .connect(process.env.DB_CONNECTION)
+  .then(() => {
+    console.log("CONNECTED TO DB");
+    app.listen(8081);
+  })
+  .catch((error) => {
+    console.log(error);
+  });

@@ -2,11 +2,16 @@ const mongoose = require("mongoose");
 const User = require("../models/User");
 
 exports.getUsers = async (req, res, next) => {
-
+  try {
     const user = await User.find();
     console.log("USERS FETCHED");
     res.status(200).json({ user });
-  
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .send("An error occured in the server, we are currently fixing it.");
+  }
 };
 
 // exports.addUser = async (req, res, next) => {
