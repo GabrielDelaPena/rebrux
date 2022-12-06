@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
-const userRoutes = require("./routes/user");
+// const userRoutes = require("./routes/user");
 
 const app = express();
 dotenv.config();
@@ -17,7 +17,7 @@ app.get("/", async (req, res) => {
   res.status(200).json("Welcome to my API");
 });
 
-app.use("/api/users", userRoutes);
+// app.use("/api/users", userRoutes);
 
 // app.get("/", async (req, res) => {
 //   try {
