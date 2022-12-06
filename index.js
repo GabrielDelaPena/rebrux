@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
-const User = require("./models/User");
+const userRoutes = require("./routes/user");
 
 const app = express();
 dotenv.config();
@@ -14,31 +14,37 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", async (req, res) => {
-  try {
-    const users = await User.find();
-    console.log("USERS FETCHED");
-    res.status(200).json(users);
-  } catch (error) {
-    console.log(error);
-  }
+  res.status(200).json("Welcome to my API");
 });
 
-app.post("/", async (req, res) => {
-  try {
-    const user = new User({
-      username: req.body.username,
-      password: req.body.password,
-      email: req.body.email,
-      reports: [],
-    });
+app.use("/api/users", userRoutes);
 
-    await user.save();
-    console.log("USERS ADDED");
-    res.status(200).json(user);
-  } catch (error) {
-    console.log(error);
-  }
-});
+// app.get("/", async (req, res) => {
+//   try {
+//     const users = await User.find();
+//     console.log("USERS FETCHED");
+//     res.status(200).json(users);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
+
+// app.post("/", async (req, res) => {
+//   try {
+//     const user = new User({
+//       username: req.body.username,
+//       password: req.body.password,
+//       email: req.body.email,
+//       reports: [],
+//     });
+
+//     await user.save();
+//     console.log("USERS ADDED");
+//     res.status(200).json(user);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 app.listen(PORT, () => {
   console.log(`backend server started on port ${PORT}`);
