@@ -7,10 +7,7 @@ exports.getUsers = async (req, res, next) => {
     console.log("USERS FETCHED");
     res.status(200).json({ user });
   } catch (error) {
-    console.log(error);
-    res
-      .status(500)
-      .send("An error occured in the server, we are currently fixing it.");
+    return reject("An error occured in the server, we are currently fixing it.");
   }
 };
 
@@ -27,9 +24,6 @@ exports.addUser = async (req, res, next) => {
     console.log("USER CREATED");
     res.status(200).json({ user });
   } catch (error) {
-    console.log(error);
-    res
-      .status(500)
-      .send("An error occured in the server, we are currently fixing it.");
+    return reject("An error occured in the server, we are currently fixing it.");
   }
 };
