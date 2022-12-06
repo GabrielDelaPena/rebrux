@@ -1,35 +1,19 @@
 const express = require("express");
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
-// import routes
-const userRoutes = require("./routes/user");
-
-// configuration
 const app = express();
 dotenv.config();
 
-// middleware
-app.use(express.static('public'));
+const PORT = process.env.PORT || 3030;
+
 app.use(express.json());
 app.use(cors());
 
-//Root route
-app.get('/', (req, res) => {
-  res.status(300).redirect('/info.html');
+app.get("/", (req, res) => {
+  res.status(200).json("Home URL");
 });
 
-// routes middleware
-app.use("/api/users", userRoutes);
-
-// DB connection
-mongoose
-  .connect(process.env.DB_CONNECTION)
-  .then(() => {
-    console.log("CONNECTED TO DB");
-    app.listen(8081);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
+});
