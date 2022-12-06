@@ -19,10 +19,7 @@ app.use("/", userRoutes);
 
 // DB connection
 mongoose
-  .connect(process.env.DB_CONNECTION, {
-    useCreateIndex: true,
-    useNewUrlParser: true
-  })
+  .connect(process.env.DB_CONNECTION)
   .then(() => {
     console.log("CONNECTED TO DB");
     app.listen(8081);
