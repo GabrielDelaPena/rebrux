@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 // import routes
-const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 
 // configuration
@@ -25,8 +24,7 @@ app.use((req, res, next) => {
 });
 
 // routes middleware
-app.use("/api/auth", authRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
 
 // DB connection
 mongoose.connect(process.env.DB_CONNECTION).then(() => {
