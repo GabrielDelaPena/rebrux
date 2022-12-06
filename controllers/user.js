@@ -7,23 +7,29 @@ exports.getUsers = async (req, res, next) => {
     console.log("USERS FETCHED");
     res.status(200).json({ user });
   } catch (error) {
-    return reject("An error occured in the server, we are currently fixing it.");
+    console.log(error);
+    res
+      .status(500)
+      .send("An error occured in the server, we are currently fixing it.");
   }
 };
 
-exports.addUser = async (req, res, next) => {
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    reports: [],
-  });
+// exports.addUser = async (req, res, next) => {
+//   const user = new User({
+//     username: req.body.username,
+//     password: req.body.password,
+//     email: req.body.email,
+//     reports: [],
+//   });
 
-  try {
-    await user.save();
-    console.log("USER CREATED");
-    res.status(200).json({ user });
-  } catch (error) {
-    return reject("An error occured in the server, we are currently fixing it.");
-  }
-};
+//   try {
+//     await user.save();
+//     console.log("USER CREATED");
+//     res.status(200).json({ user });
+//   } catch (error) {
+//     console.log(error);
+//     res
+//       .status(500)
+//       .send("An error occured in the server, we are currently fixing it.");
+//   }
+// };
