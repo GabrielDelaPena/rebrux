@@ -11,11 +11,17 @@ const app = express();
 dotenv.config();
 
 // middleware
+app.use(express.static('public'));
 app.use(express.json());
 app.use(cors());
 
+//Root route
+app.get('/', (req, res) => {
+  res.status(300).redirect('/info.html');
+});
+
 // routes middleware
-app.use("/", userRoutes);
+app.use("/api/users", userRoutes);
 
 // DB connection
 mongoose
