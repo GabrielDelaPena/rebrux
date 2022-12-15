@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 
 const userRoutes = require("./routes/user");
+const authRoutes = require("./routes/auth");
 
 const app = express();
 dotenv.config();
@@ -18,6 +19,7 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 
 // app.get("/", async (req, res) => {
 //   try {
