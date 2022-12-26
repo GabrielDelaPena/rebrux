@@ -3,30 +3,49 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
+    role: {
+      type: String,
+      min: 6,
+      max: 255,
+    },
     username: {
       type: String,
-      required: true,
       min: 6,
       max: 255,
     },
     password: {
       type: String,
-      required: true,
       min: 6,
       max: 255,
     },
     email: {
       type: String,
-      required: true,
       min: 6,
       max: 255,
     },
-    reports: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Report",
-      },
-    ],
+    street: {
+      type: String,
+      min: 6,
+      max: 255,
+    },
+    city: {
+      type: String,
+      min: 6,
+      max: 255,
+    },
+    zip: {
+      type: String,
+      min: 6,
+      max: 255,
+    },
+    phone: {
+      type: String,
+      min: 6,
+      max: 255,
+    },
+    points: {
+      type: Number,
+    },
   },
   { timestamps: true }
 );

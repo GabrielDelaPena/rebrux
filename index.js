@@ -4,7 +4,6 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 
 const userRoutes = require("./routes/user");
-const authRoutes = require("./routes/auth");
 
 const app = express();
 dotenv.config();
@@ -19,34 +18,6 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
-app.use("/api/auth", authRoutes);
-
-// app.get("/", async (req, res) => {
-//   try {
-//     const users = await User.find();
-//     console.log("USERS FETCHED");
-//     res.status(200).json(users);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
-
-// app.post("/", async (req, res) => {
-//   try {
-//     const user = new User({
-//       username: req.body.username,
-//       password: req.body.password,
-//       email: req.body.email,
-//       reports: [],
-//     });
-
-//     await user.save();
-//     console.log("USERS ADDED");
-//     res.status(200).json(user);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
 
 app.listen(PORT, () => {
   console.log(`backend server started on port ${PORT}`);
