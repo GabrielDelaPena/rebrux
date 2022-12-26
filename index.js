@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 
 const userRoutes = require("./routes/user");
+const reportRoutes = require("./routes/report");
 
 const app = express();
 dotenv.config();
@@ -18,6 +19,7 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/api/users", userRoutes);
+app.use("/api/reports", reportRoutes);
 
 app.listen(PORT, () => {
   console.log(`backend server started on port ${PORT}`);
