@@ -27,10 +27,10 @@ exports.register = async (req, res, next) => {
     username: req.body.username,
     password: hashedPassword,
     email: req.body.email,
-    street: req.body.street,
-    city: req.body.city,
-    zip: req.body.zip,
-    phone: req.body.phone,
+    street: "",
+    city: "",
+    zip: "",
+    phone: "",
     points: 0,
   });
 
