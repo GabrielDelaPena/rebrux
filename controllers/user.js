@@ -39,7 +39,7 @@ exports.register = async (req, res, next) => {
     console.log("USER CREATED");
     res
       .status(200)
-      .send(`User ${savedUser.username} has been successfully registered.`);
+      .send(`User has been successfully registered.`);
   } catch (error) {
     console.log(error);
     res
