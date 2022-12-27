@@ -39,7 +39,7 @@ exports.register = async (req, res, next) => {
     console.log("USER CREATED");
     res
       .status(200)
-      .send(`User has been successfully registered.`);
+      .send(`User ${savedUser.username} has been successfully registered.`);
   } catch (error) {
     console.log(error);
     res
@@ -49,14 +49,14 @@ exports.register = async (req, res, next) => {
 };
 
 exports.login = async (req, res) => {
-  const user = await User.findOne({ username: req.body.username });
+  const user = await User.findOne({ email: req.body.email });
   if (!user) {
-    return res.status(400).send("Username does not exist.");
+    return res.status(400).send("Email does not exist.");
   }
 
   const isEqual = await bcrypt.compare(req.body.password, user.password);
   if (!isEqual) {
-    return res.status(400).send("Username or Password invalid.");
+    return res.status(400).send("Email or Password invalid.");
   }
 
   try {
