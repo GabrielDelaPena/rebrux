@@ -37,8 +37,8 @@ exports.createReport = async (req, res, next) => {
     city: req.body.city,
     zip: req.body.zip,
     cleaned: false,
-    lat: 0,
-    lng: 0,
+    lat: req.body.lat,
+    lng: req.body.lng,
   });
 
   try {
