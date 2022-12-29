@@ -38,10 +38,10 @@ const reportSchema = new Schema(
       type: Boolean,
     },
     lat: {
-      type: Double,
+      type: mongoose.Double,
     },
     lng: {
-      type: Double,
+      type: mongoose.Double,
     },
   },
   { timestamps: true }
