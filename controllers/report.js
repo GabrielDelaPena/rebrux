@@ -39,7 +39,7 @@ exports.createReport = async (req, res, next) => {
     cleaned: false,
     lat: req.body.lat,
     lng: req.body.lng,
-  });
+  }); 
 
   try {
     const savedReport = await report.save();
