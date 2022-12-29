@@ -1,3 +1,4 @@
+const { Double } = require("mongodb");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -37,10 +38,10 @@ const reportSchema = new Schema(
       type: Boolean,
     },
     lat: {
-      type: Number,
+      type: Double,
     },
     lng: {
-      type: Number,
+      type: Double,
     },
   },
   { timestamps: true }
