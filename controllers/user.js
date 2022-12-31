@@ -61,7 +61,7 @@ exports.login = async (req, res) => {
 
   try {
     console.log("USER LOGGEDIN");
-    res.status(200).send(user._id);
+    res.status(200).json(user._id);
   } catch (error) {
     console.log(error);
     res
