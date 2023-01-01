@@ -29,6 +29,13 @@ exports.createReport = async (req, res, next) => {
     return res.status(400).send("User does not exist.");
   }
 
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  var yyyy = today.getFullYear();
+
+  today = dd + "/" + mm + "/" + yyyy;
+
   const report = new Report({
     creator: req.body.creator,
     image: req.body.image,
@@ -39,7 +46,8 @@ exports.createReport = async (req, res, next) => {
     cleaned: false,
     lat: req.body.lat,
     lng: req.body.lng,
-  }); 
+    createdAt: today,
+  });
 
   try {
     const savedReport = await report.save();
