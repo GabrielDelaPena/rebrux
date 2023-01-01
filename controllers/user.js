@@ -69,3 +69,22 @@ exports.login = async (req, res) => {
       .send("An error occured in the server, we are currently fixing it.");
   }
 };
+
+exports.getUserById = async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      return res.status(400).send("User not found!");
+    }
+
+    console.log("SINGLE USER FETCHED.");
+    res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .send("An error occured in the server, we are currently fixing it.");
+  }
+};
