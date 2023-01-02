@@ -83,3 +83,22 @@ exports.getReportsByUserId = async (req, res, next) => {
       .send("An error occured in the server, we are currently fixing it.");
   }
 };
+
+exports.getReportById = async (req, res) => {
+  const reportId = req.params.reportId;
+
+  try {
+    const report = await Report.findOne({ _id: reportId });
+    if (!report) {
+      return res.status(400).send("Reports not found.");
+    }
+
+    console.log("SINGLE REPORT FETCHED.");
+    res.status(200).json(report);
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .send("An error occured in the server, we are currently fixing it.");
+  }
+};
