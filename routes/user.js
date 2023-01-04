@@ -10,4 +10,6 @@ router.post("/register", userController.register);
 
 router.post("/login", userController.login);
 
+router.post("/edit/:userID", userController.editUser);
+
 module.exports = router;

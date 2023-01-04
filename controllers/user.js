@@ -88,3 +88,29 @@ exports.getUserById = async (req, res) => {
       .send("An error occured in the server, we are currently fixing it.");
   }
 };
+
+exports.editUser = async (req, res) => {
+  const username = req.body.username;
+  const email = req.body.email;
+  const phone = req.body.phone;
+  const userID = req.params.userID;
+
+  try {
+    const user = await User.findOne({ _id: userID });
+    if (!user) {
+      return res.status(400).send("User not found!");
+    }
+
+    user.username = username;
+    user.email = email;
+    user.phone = phone;
+    console.log("USER UPDATED");
+    const updatedUser = await user.save();
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .send("An error occured in the server, we are currently fixing it.");
+  }
+};
