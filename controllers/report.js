@@ -74,6 +74,15 @@ exports.getReportsByUserId = async (req, res, next) => {
       return res.status(400).send("No reports for this user.");
     }
 
+    const user = await User.findOne({ _id: userId });
+    if (reports.length == 0) {
+      return res.status(400).send("User does not exist.");
+    }
+
+    for (let i = 0; i < reports.length; i++) {
+      reports[i].creator = user.username;
+    }
+
     console.log("USER REPORTS FETCHED.");
     res.status(200).json(reports);
   } catch (error) {
@@ -102,5 +111,3 @@ exports.getReportById = async (req, res) => {
       .send("An error occured in the server, we are currently fixing it.");
   }
 };
-
-
