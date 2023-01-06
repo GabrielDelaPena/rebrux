@@ -75,7 +75,7 @@ exports.getReportsByUserId = async (req, res, next) => {
     }
 
     const user = await User.findOne({ _id: userId });
-    if (reports.length == 0) {
+    if (!user) {
       return res.status(400).send("User does not exist.");
     }
 
@@ -101,6 +101,13 @@ exports.getReportById = async (req, res) => {
     if (!report) {
       return res.status(400).send("Reports not found.");
     }
+
+    const user = await User.findOne({ _id: report.creator });
+    if (!user) {
+      return res.status(400).send("User does not exist.");
+    }
+
+    report.creator = user.username;
 
     console.log("SINGLE REPORT FETCHED.");
     res.status(200).json(report);
