@@ -13,7 +13,7 @@ dotenv.config();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads");
+    cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
     console.log(file);
@@ -39,6 +39,7 @@ app.use("/api/reports", reportRoutes);
 
 app.post("/upload", upload.single("image"), (req, res) => {
   // The image is saved in the 'uploads' folder
+  console.log(req.file);
   res.sendStatus(200);
 });
 
