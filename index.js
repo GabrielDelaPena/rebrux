@@ -56,6 +56,22 @@ app.post("/upload", (req, res) => {
   });
 });
 
+app.get("/image/:imageID", async (req, res) => {
+  const imageID = req.params.imageID;
+
+  try {
+    const image = await Image.findOne({ _id: imageID });
+    if (!image) {
+      res.status(400).send("Image not found.");
+    }
+    console.log("FETCHED IMAGE");
+    res.status(200).send(image);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error in da Server.");
+  }
+});
+
 app.use("/api/users", userRoutes);
 app.use("/api/reports", reportRoutes);
 
