@@ -4,6 +4,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const multer = require("multer");
 const path = require("path");
+const fs = require('fs');
+
 
 const userRoutes = require("./routes/user");
 const reportRoutes = require("./routes/report");
@@ -29,6 +31,19 @@ app.use(express.json());
 app.use(cors());
 // app.use(multer({ storage: storage }).single("image"));
 // app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+app.get('/uploads/:filename', (req, res) => {
+  const { filename } = req.params;
+  const filePath = `uploads/${filename}`;
+  fs.readFile(filePath, (err, data) => {
+      if (err) {
+          res.sendStatus(404);
+          return;
+      }
+      res.contentType('image/jpeg');
+      res.send(data);
+  });
+});
 
 app.get("/", async (req, res) => {
   res.status(200).json("Welcome to my API");
