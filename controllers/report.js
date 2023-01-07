@@ -36,9 +36,13 @@ exports.createReport = async (req, res, next) => {
 
   today = dd + "/" + mm + "/" + yyyy;
 
+  console.log(req.file);
+  if (!req.file) return res.send("Please upload a file");
+  const image = req.file.path.replace("\\", "/");
+
   const report = new Report({
     creator: req.body.creator,
-    image: req.body.image,
+    image: image,
     description: req.body.description,
     street: req.body.street,
     city: req.body.city,
