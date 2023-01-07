@@ -21,12 +21,14 @@ const storage = multer.diskStorage({
   },
 });
 
+const upload = multer({ storage: storage });
+
 const PORT = process.env.PORT || 3030;
 
 app.use(express.json());
 app.use(cors());
-app.use(multer({ storage: storage }).single("image"));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// app.use(multer({ storage: storage }).single("image"));
+// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", async (req, res) => {
   res.status(200).json("Welcome to my API");
@@ -35,11 +37,10 @@ app.get("/", async (req, res) => {
 app.use("/api/users", userRoutes);
 app.use("/api/reports", reportRoutes);
 
-// app.post("/upload", upload.single("image"), (req, res) => {
-//   // The image is saved in the 'uploads' folder
-//   const image = req.file;
-//   res.sendStatus(200);
-// });
+app.post("/upload", upload.single("image"), (req, res) => {
+  // The image is saved in the 'uploads' folder
+  res.sendStatus(200);
+});
 
 app.listen(PORT, () => {
   console.log(`backend server started on port ${PORT}`);
