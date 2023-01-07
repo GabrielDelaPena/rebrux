@@ -40,6 +40,7 @@ app.use("/api/reports", reportRoutes);
 app.post("/upload", upload.single("image"), (req, res) => {
   // The image is saved in the 'uploads' folder
   console.log(req.file);
+  console.log(req.file.path);
   res.sendStatus(200);
 });
 
