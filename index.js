@@ -46,7 +46,7 @@ app.post("/upload", (req, res) => {
       });
       try {
         newImage.save();
-        console.log(`Image ${newImage.fil}`);
+        console.log(`Image ${newImage}`);
         res.status(200).send("Upload success.");
       } catch (error) {
         console.log(error);
