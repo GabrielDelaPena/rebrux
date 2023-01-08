@@ -65,7 +65,7 @@ app.get("/image/:imageID", async (req, res) => {
       res.status(400).send("Image not found.");
     }
     console.log("FETCHED IMAGE");
-    res.status(200).send(image.image);
+    res.status(200).send(image.image.data);
   } catch (err) {
     console.log(err);
     res.status(500).send("Error in da Server.");

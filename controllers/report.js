@@ -118,3 +118,44 @@ exports.getReportById = async (req, res) => {
       .send("An error occured in the server, we are currently fixing it.");
   }
 };
+
+exports.deleteReportById = async (req, res) => {
+  const reportID = req.params.reportID;
+
+  try {
+    const report = await Report.findOne({ _id: reportID });
+    if (!report) {
+      return res.status(400).send("Reports not found.");
+    }
+
+    await Report.findByIdAndRemove(report._id);
+    console.log("REPORT DELETED");
+    res.status(200).send("Report deleted.");
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .send("An error occured in the server, we are currently fixing it.");
+  }
+};
+
+exports.isCleanedReport = async (req, res) => {
+  const reportID = req.body.reportID;
+
+  try {
+    const report = await Report.findOne({ _id: reportID });
+    if (!report) {
+      return res.status(400).send("Reports not found.");
+    }
+
+    report.cleaned = true;
+    await report.save();
+    console.log("REPORT IS CLEANED");
+    res.status(200).send("Report is cleaned.");
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .send("An error occured in the server, we are currently fixing it.");
+  }
+};

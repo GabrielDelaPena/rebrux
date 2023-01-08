@@ -10,4 +10,8 @@ router.get("/report/:reportId", reportController.getReportById);
 
 router.post("/new", reportController.createReport);
 
+router.post("/delete/:reportID", reportController.deleteReportById);
+
+router.post("/cleaned", reportController.isCleanedReport);
+
 module.exports = router;
