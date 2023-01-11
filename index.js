@@ -29,9 +29,9 @@ app.use(cors());
 //   storage: Storage,
 // }).single("image");
 
-// app.get("/", async (req, res) => {
-//   res.status(200).json("Welcome to my API");
-// });
+app.get("/", async (req, res) => {
+  res.status(200).json("Welcome to my API");
+});
 
 // Middleware upload image
 // app.post("/upload", (req, res) => {
