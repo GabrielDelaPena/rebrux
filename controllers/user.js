@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const nodemailer = require("nodemailer");
 
 exports.getUsers = async (req, res, next) => {
   try {
@@ -107,6 +108,29 @@ exports.editUser = async (req, res) => {
     console.log("USER UPDATED");
     const updatedUser = await user.save();
     res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .send("An error occured in the server, we are currently fixing it.");
+  }
+};
+
+exports.changePassword = async (req, res) => {
+  const userEmail = req.body.email;
+
+  try {
+    const user = await User.findOne({ email: userEmail });
+    if (!user) {
+      return res.status(400).send("User not found!");
+    }
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 12);
+
+    user.password = hashedPassword;
+    await user.save();
+    console.log("PASSWORD UPDATED");
+    res.status(200).send("User updated password successfully.");
   } catch (error) {
     console.log(error);
     res
