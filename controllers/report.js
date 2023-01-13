@@ -28,6 +28,7 @@ exports.createReport = async (req, res, next) => {
   if (!userExist) {
     return res.status(400).send("User does not exist.");
   }
+  userExist.points = userExist.points + 50;
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
@@ -50,6 +51,7 @@ exports.createReport = async (req, res, next) => {
   });
 
   try {
+    await userExist.save();
     const savedReport = await report.save();
     console.log("REPORT ADDED");
     res
