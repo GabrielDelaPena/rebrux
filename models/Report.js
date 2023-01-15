@@ -46,6 +46,9 @@ const reportSchema = new Schema({
     min: 6,
     max: 255,
   },
+  timeCreated: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Report", reportSchema);

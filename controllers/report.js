@@ -48,6 +48,7 @@ exports.createReport = async (req, res, next) => {
     lat: req.body.lat,
     lng: req.body.lng,
     createdAt: today,
+    timeCreated: new Date().getHours() + ":" + new Date().getMinutes(),
   });
 
   try {
