@@ -93,7 +93,6 @@ exports.getUserById = async (req, res) => {
 exports.editUser = async (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
-  const phone = req.body.phone;
   const userID = req.params.userID;
 
   try {
@@ -104,7 +103,6 @@ exports.editUser = async (req, res) => {
 
     user.username = username;
     user.email = email;
-    user.phone = phone;
     console.log("USER UPDATED");
     const updatedUser = await user.save();
     res.status(200).json(updatedUser);
